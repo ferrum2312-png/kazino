@@ -4,7 +4,7 @@ import { useStore } from '../store/useStore'
 import { useI18n } from '../i18n'
 import Toast from '../components/Toast'
 import Settings from '../components/Settings'
-import TonDeposit from '../components/TonDeposit'
+import DepositSheet from '../components/DepositSheet'
 
 function shortAddr(a) {
   return a ? `${a.slice(0, 4)}…${a.slice(-4)}` : ''
@@ -109,14 +109,7 @@ export default function Profile() {
       </div>
 
       {showSettings && <Settings onClose={() => setShowSettings(false)} />}
-      {showDeposit && (
-        <div className="modal-overlay" onClick={() => setShowDeposit(false)}>
-          <div className="modal-sheet" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-title">{t('tonTopUp')}</div>
-            <TonDeposit />
-          </div>
-        </div>
-      )}
+      {showDeposit && <DepositSheet onClose={() => setShowDeposit(false)} />}
 
       <Toast message={toast} onClose={() => setToast('')} />
     </div>
