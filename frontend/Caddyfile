@@ -12,6 +12,8 @@
 	handle {
 		root * /srv
 		try_files {path} /index.html
+		# Always revalidate so Telegram's WebView never shows a stale build.
+		header Cache-Control "no-cache"
 		file_server
 	}
 }
