@@ -1,10 +1,10 @@
 :root {
-  --bg: #150a14;
-  --bg-2: #1d0f1c;
-  --card: #0e0a10;
-  --card-2: #180d18;
+  --bg: #070708;
+  --bg-2: #101012;
+  --card: #121216;
+  --card-2: #16161b;
   --text: #ffffff;
-  --muted: #9a8a99;
+  --muted: #8b8790;
   --gold: #ffb020;
   --pink: #ff4d94;
   --purple: #8a5cff;
@@ -31,10 +31,7 @@ body {
 }
 
 body {
-  background:
-    radial-gradient(1200px 600px at 50% -10%, #2a1226 0%, transparent 60%),
-    radial-gradient(800px 500px at 100% 100%, #221033 0%, transparent 55%),
-    var(--bg);
+  background: var(--bg);
 }
 
 #root {

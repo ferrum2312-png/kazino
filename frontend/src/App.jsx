@@ -28,8 +28,8 @@ export default function App() {
     if (tg) {
       tg.ready()
       tg.expand?.()
-      tg.setHeaderColor?.('#150a14')
-      tg.setBackgroundColor?.('#150a14')
+      tg.setHeaderColor?.('#070708')
+      tg.setBackgroundColor?.('#070708')
     }
     bootstrap()
   }, [bootstrap])
