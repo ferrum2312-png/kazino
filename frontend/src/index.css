@@ -834,7 +834,8 @@ button {
   align-items: center;
   padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
   z-index: 30;
-  transform: translateZ(0); /* own compositor layer -> less repaint */
+  /* keep the centering translateX AND promote to its own compositor layer */
+  transform: translateX(-50%) translateZ(0);
 }
 
 .nav-item {
