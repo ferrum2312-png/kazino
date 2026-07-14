@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { useTonConnectUI, useTonAddress } from '@tonconnect/ui-react'
 import { useStore } from '../store/useStore'
+import { useI18n } from '../i18n'
 import Toast from '../components/Toast'
+import Settings from '../components/Settings'
+import TonDeposit from '../components/TonDeposit'
 
 function shortAddr(a) {
   return a ? `${a.slice(0, 4)}…${a.slice(-4)}` : ''
@@ -9,9 +12,12 @@ function shortAddr(a) {
 
 export default function Profile() {
   const { user, balance } = useStore()
+  const { t } = useI18n()
   const [tonConnectUI] = useTonConnectUI()
   const address = useTonAddress()
   const [toast, setToast] = useState('')
+  const [showSettings, setShowSettings] = useState(false)
+  const [showDeposit, setShowDeposit] = useState(false)
 
   const connect = () => tonConnectUI.openModal()
   const disconnect = () => tonConnectUI.disconnect()
@@ -26,51 +32,45 @@ export default function Profile() {
       {/* top bar */}
       <div className="pf-top">
         <div className="pf-top-left">
-          <button
-            className="pf-icon-btn"
-            onClick={() => setToast('Настройки скоро')}
-          >
+          <button className="pf-icon-btn" onClick={() => setShowSettings(true)}>
             ⚙️
           </button>
           <div className="pf-online">
             <span className="pf-people">👤</span> 54
           </div>
         </div>
-        <button
-          className="pf-ton-pill"
-          onClick={address ? disconnect : connect}
-        >
-          <span className="pf-diamond">💎</span>
-          <span>{address ? shortAddr(address) : '0.00'}</span>
-          <span className="pf-plus">+</span>
+        <button className="pf-ton-pill">
+          <span className="pf-diamond" onClick={address ? disconnect : connect}>
+            💎
+          </span>
+          <span onClick={address ? disconnect : connect}>
+            {address ? shortAddr(address) : '0.00'}
+          </span>
+          <span className="pf-plus" onClick={() => setShowDeposit(true)}>
+            +
+          </span>
         </button>
       </div>
 
-      {/* profile card */}
+      {/* profile card (no level bar) */}
       <div className="pf-card pf-profile">
         <img className="pf-avatar" src={avatar} alt="" />
         <div className="pf-info">
           <div className="pf-name">{name}</div>
           <div className="pf-handle">{handle}</div>
-          <div className="pf-level-bar">
-            <div className="pf-level-fill" style={{ width: '4%' }}>
-              <span className="pf-level-a">0 → 1 Ур.</span>
-              <span className="pf-level-b">0/0</span>
-            </div>
-          </div>
         </div>
       </div>
 
       {/* TON balance / connect */}
       <button
         className="pf-card pf-balance"
-        onClick={address ? disconnect : connect}
+        onClick={address ? () => setShowDeposit(true) : connect}
       >
         <span className="pf-coin ton">💎</span>
         <div className="pf-bal-info">
-          <div className="pf-bal-label">Баланс TON</div>
+          <div className="pf-bal-label">{t('balanceTon')}</div>
           <div className="pf-bal-value">
-            {address ? '0.00' : 'Подключить кошелёк →'}
+            {address ? '0.00' : `${t('connectWallet')} →`}
           </div>
         </div>
         {address && <span className="pf-chip">{shortAddr(address)}</span>}
@@ -80,41 +80,43 @@ export default function Profile() {
       <div className="pf-card pf-balance">
         <span className="pf-coin star">★</span>
         <div className="pf-bal-info">
-          <div className="pf-bal-label">Баланс</div>
-          <div className="pf-bal-value">
-            {balance.toLocaleString('ru-RU')} ★
-          </div>
+          <div className="pf-bal-label">{t('balance')}</div>
+          <div className="pf-bal-value">{balance.toLocaleString('ru-RU')} ★</div>
         </div>
-        <button
-          className="pf-help"
-          onClick={() => setToast('Игровые фишки. Начисляются новым игрокам.')}
-        >
+        <button className="pf-help" onClick={() => setToast(t('coinsHint'))}>
           ?
         </button>
       </div>
 
       {/* actions */}
       <div className="pf-actions">
-        <button className="btn blue" onClick={() => setToast('Скоро')}>
-          Добавить подарок
+        <button className="btn blue" onClick={() => setShowDeposit(true)}>
+          {t('topUp')}
         </button>
-        <button
-          className="btn dark"
-          onClick={() => setToast('Напиши в поддержку через бота')}
-        >
-          Тех. поддержка
+        <button className="btn dark" onClick={() => setToast(t('supportHint'))}>
+          {t('support')}
         </button>
       </div>
 
       {/* empty state */}
       <div className="pf-card pf-empty">
         <div className="pf-duck">🦆</div>
-        <div className="pf-empty-title">Есть подарки в Telegram?</div>
-        <div className="pf-empty-sub">Добавь их через нашего бота</div>
-        <button className="btn dark pf-how" onClick={() => setToast('Скоро')}>
-          Как добавить?
+        <div className="pf-empty-title">{t('giftsTitle')}</div>
+        <div className="pf-empty-sub">{t('giftsSub')}</div>
+        <button className="btn dark pf-how" onClick={() => setToast(t('soon'))}>
+          {t('howAdd')}
         </button>
       </div>
+
+      {showSettings && <Settings onClose={() => setShowSettings(false)} />}
+      {showDeposit && (
+        <div className="modal-overlay" onClick={() => setShowDeposit(false)}>
+          <div className="modal-sheet" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-title">{t('tonTopUp')}</div>
+            <TonDeposit />
+          </div>
+        </div>
+      )}
 
       <Toast message={toast} onClose={() => setToast('')} />
     </div>

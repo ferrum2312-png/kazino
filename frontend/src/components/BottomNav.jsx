@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import { useI18n } from '../i18n'
 
 const CasesIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -24,16 +25,17 @@ const ProfileIcon = () => (
 )
 
 const ITEMS = [
-  { to: '/cases', label: 'Кейсы', Icon: CasesIcon },
-  { to: '/', label: 'Главная', Icon: HomeIcon },
-  { to: '/profile', label: 'Профиль', Icon: ProfileIcon },
+  { to: '/cases', key: 'cases', Icon: CasesIcon },
+  { to: '/', key: 'home', Icon: HomeIcon },
+  { to: '/profile', key: 'profile', Icon: ProfileIcon },
 ]
 
 export default function BottomNav() {
   const { pathname } = useLocation()
+  const { t } = useI18n()
   return (
     <nav className="bottom-nav">
-      {ITEMS.map(({ to, label, Icon }) => {
+      {ITEMS.map(({ to, key, Icon }) => {
         const active =
           to === '/'
             ? pathname === '/' || pathname.startsWith('/game')
@@ -41,7 +43,7 @@ export default function BottomNav() {
         return (
           <Link key={to} to={to} className={`nav-item ${active ? 'active' : ''}`}>
             <Icon />
-            <span>{label}</span>
+            <span>{t(key)}</span>
           </Link>
         )
       })}
