@@ -80,9 +80,4 @@ export const useStore = create((set, get) => ({
       /* ignore */
     }
   },
-
-  async deposit(amount) {
-    const { balance } = await api.deposit(amount)
-    set({ balance: Number(balance) })
-  },
 }))

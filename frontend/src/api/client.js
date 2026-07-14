@@ -50,8 +50,6 @@ export const api = {
     request('/auth/login', { method: 'POST', form: { username, password } }),
   me: () => request('/users/me'),
   balance: () => request('/users/me/balance'),
-  deposit: (amount) =>
-    request('/users/me/deposit', { method: 'POST', body: { amount } }),
   transactions: () => request('/users/me/transactions'),
 
   games: () => request('/catalog/games'),

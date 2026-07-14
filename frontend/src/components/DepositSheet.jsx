@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useTonConnectUI, useTonAddress } from '@tonconnect/ui-react'
 import { useI18n } from '../i18n'
 import TonDeposit from './TonDeposit'
 import Toast from './Toast'
@@ -13,8 +12,6 @@ const METHODS = [
 
 export default function DepositSheet({ onClose }) {
   const { t } = useI18n()
-  const [tonConnectUI] = useTonConnectUI()
-  const address = useTonAddress()
   const [selected, setSelected] = useState('ton')
   const [step, setStep] = useState('methods') // methods | amount
   const [toast, setToast] = useState('')
@@ -60,16 +57,8 @@ export default function DepositSheet({ onClose }) {
             </div>
 
             <button
-              className="btn dark block"
-              style={{ marginTop: 14 }}
-              onClick={() => !address && tonConnectUI.openModal()}
-            >
-              {address ? t('walletLinked') : t('linkWallet')}
-            </button>
-
-            <button
               className="btn blue block dep-continue"
-              style={{ marginTop: 10 }}
+              style={{ marginTop: 14 }}
               onClick={cont}
             >
               <span>{t('continue')}</span>
