@@ -6,8 +6,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.db.session import init_models
-from app.routers import auth, catalog, crash, mines, users
+from app.routers import auth, catalog, crash, mines, payments, users
 from app.services.crash_engine import engine
+from app.services.deposit_watcher import watcher
 from app.services.redis_client import close_redis
 
 
@@ -16,14 +17,17 @@ async def lifespan(app: FastAPI):
     # Startup
     await init_models()
     crash_task = asyncio.create_task(engine.run_forever())
+    deposit_task = asyncio.create_task(watcher.run_forever())
     yield
     # Shutdown
     engine.stop()
-    crash_task.cancel()
-    try:
-        await crash_task
-    except asyncio.CancelledError:
-        pass
+    watcher.stop()
+    for task in (crash_task, deposit_task):
+        task.cancel()
+        try:
+            await task
+        except asyncio.CancelledError:
+            pass
     await close_redis()
 
 
@@ -43,6 +47,7 @@ app.include_router(users.router, prefix=api)
 app.include_router(catalog.router, prefix=api)
 app.include_router(mines.router, prefix=api)
 app.include_router(crash.router, prefix=api)
+app.include_router(payments.router, prefix=api)
 
 
 @app.get("/")

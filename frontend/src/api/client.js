@@ -68,6 +68,11 @@ export const api = {
 
   // Crash
   crashHistory: () => request('/games/crash/history'),
+
+  // Payments (TON -> Stars)
+  getRate: () => request('/payments/rate'),
+  depositInfo: () => request('/payments/deposit-info'),
+  myDeposits: () => request('/payments/my-deposits'),
 }
 
 export function crashSocketUrl() {

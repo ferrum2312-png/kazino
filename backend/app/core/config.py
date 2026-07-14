@@ -31,6 +31,18 @@ class Settings(BaseSettings):
     bot_token: str = ""              # from @BotFather; required for Telegram login
     telegram_auth_max_age: int = 86400  # reject initData older than this (seconds); 0 disables
 
+    # TON payments / deposits -> Stars
+    ton_deposit_address: str = "UQAyMFJX-kJF44Em2HVHq6gjTWKOIGXKTEDL6AMJ6JqNEfXA"
+    ton_api_base: str = "https://tonapi.io"
+    ton_api_key: str = ""            # optional TonAPI key (tonconsole.com) for higher limits
+    star_usd_price: float = 0.015    # 50 Stars = $0.75 -> $0.015 per Star
+    # GRAM (ex-TON) USD price is parsed & averaged from these exchanges:
+    kucoin_symbol: str = "GRAM-USDT"
+    bybit_symbol: str = "GRAMUSDT"
+    rate_cache_seconds: int = 120    # how long to cache the GRAM/USD price
+    deposit_poll_seconds: int = 20   # how often the watcher polls for new deposits
+    deposits_enabled: bool = True    # master switch for the on-chain deposit watcher
+
     # Gameplay
     starting_balance: float = 1000.0
     crash_house_edge: float = 0.03  # 3%

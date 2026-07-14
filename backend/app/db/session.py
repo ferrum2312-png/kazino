@@ -30,7 +30,12 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 async def init_models() -> None:
     """Create tables on startup (dev convenience; use Alembic in production)."""
     from app.db.base import Base
-    from app.models import user, transaction, game  # noqa: F401  (register tables)
+    from app.models import (  # noqa: F401  (register tables)
+        deposit,
+        game,
+        transaction,
+        user,
+    )
 
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
