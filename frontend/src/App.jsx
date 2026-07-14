@@ -28,6 +28,7 @@ export default function App() {
     if (tg) {
       tg.ready()
       tg.expand?.()
+      tg.disableVerticalSwipes?.() // stop swipe-to-close fighting page scroll
       tg.setHeaderColor?.('#070708')
       tg.setBackgroundColor?.('#070708')
     }

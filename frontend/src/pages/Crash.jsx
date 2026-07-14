@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api, crashSocketUrl, getToken } from '../api/client'
 import { useStore } from '../store/useStore'
@@ -11,6 +11,47 @@ function histClass(v) {
   if (v < 10) return 'mid'
   return 'high'
 }
+
+// Memoized so they don't re-render on every 100ms multiplier tick.
+const HistoryStrip = memo(function HistoryStrip({ history }) {
+  return (
+    <div className="history-strip">
+      {history.map((v, i) => (
+        <span key={i} className={`hchip ${histClass(v)}`}>
+          ×{v.toFixed(2)}
+        </span>
+      ))}
+    </div>
+  )
+})
+
+const PlayersList = memo(function PlayersList({ players }) {
+  return (
+    <div style={{ marginTop: 18 }}>
+      <div className="label">Игроки ({players.length})</div>
+      <div className="players-list">
+        {players.length === 0 && (
+          <div className="muted center" style={{ padding: 16 }}>
+            Пока никто не сделал ставку
+          </div>
+        )}
+        {players.map((p, i) => (
+          <div className="player-row" key={i}>
+            <span>{p.username}</span>
+            <span>
+              {p.amount} ★{' '}
+              {p.cashed_out ? (
+                <span className="out">×{p.cashed_out.toFixed(2)}</span>
+              ) : (
+                ''
+              )}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+})
 
 export default function Crash() {
   const navigate = useNavigate()
@@ -134,6 +175,13 @@ export default function Crash() {
   const multClass =
     phase === 'crashed' ? 'crashed' : phase === 'running' ? 'running' : 'betting'
 
+  // Rocket rises with the multiplier (0 at 1x, asymptotes near the top).
+  const rise =
+    phase === 'running' || phase === 'crashed'
+      ? 1 - 1 / Math.max(1, multiplier)
+      : 0
+  const rocketY = -Math.min(rise, 0.98) * 150
+
   return (
     <div className="page">
       <div className="page-top">
@@ -143,15 +191,25 @@ export default function Crash() {
         <div className="page-title">🚀 Краш</div>
       </div>
 
-      <div className="history-strip">
-        {history.map((v, i) => (
-          <span key={i} className={`hchip ${histClass(v)}`}>
-            ×{v.toFixed(2)}
-          </span>
-        ))}
-      </div>
+      <HistoryStrip history={history} />
 
-      <div className="crash-stage">
+      <div className={`crash-stage ${phase}`}>
+        {phase === 'running' && <div className="speedlines" />}
+
+        <div
+          className="rocket-wrap"
+          style={{ transform: `translate(-50%, ${rocketY}px)` }}
+        >
+          {phase === 'crashed' ? (
+            <div className="boom">💥</div>
+          ) : (
+            <div className={`rocket ${phase}`}>
+              🚀
+              {phase === 'running' && <span className="flame" />}
+            </div>
+          )}
+        </div>
+
         <div className="crash-status">
           {phase === 'connecting' && 'Подключение...'}
           {phase === 'betting' && `Приём ставок · ${timeLeft.toFixed(1)}с`}
@@ -223,29 +281,7 @@ export default function Crash() {
         )}
       </div>
 
-      <div style={{ marginTop: 18 }}>
-        <div className="label">Игроки ({players.length})</div>
-        <div className="players-list">
-          {players.length === 0 && (
-            <div className="muted center" style={{ padding: 16 }}>
-              Пока никто не сделал ставку
-            </div>
-          )}
-          {players.map((p, i) => (
-            <div className="player-row" key={i}>
-              <span>{p.username}</span>
-              <span>
-                {p.amount} ★{' '}
-                {p.cashed_out ? (
-                  <span className="out">×{p.cashed_out.toFixed(2)}</span>
-                ) : (
-                  ''
-                )}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
+      <PlayersList players={players} />
 
       <Toast message={toast} onClose={() => setToast('')} />
     </div>
