@@ -8,6 +8,7 @@ import Crash from './pages/Crash'
 import Mines from './pages/Mines'
 import Wallet from './pages/Wallet'
 import Profile from './pages/Profile'
+import Cases from './pages/Cases'
 import GamePlaceholder from './pages/GamePlaceholder'
 
 function RequireAuth({ children }) {
@@ -68,6 +69,14 @@ export default function App() {
           element={
             <RequireAuth>
               <GamePlaceholder />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/cases"
+          element={
+            <RequireAuth>
+              <Cases />
             </RequireAuth>
           }
         />

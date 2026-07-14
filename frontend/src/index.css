@@ -404,16 +404,16 @@ button {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 14px;
-  width: calc(var(--maxw) - 32px);
-  max-width: calc(100vw - 32px);
-  background: rgba(15, 8, 15, 0.9);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
+  bottom: 0;
+  width: 100%;
+  max-width: var(--maxw);
+  background: rgba(10, 6, 10, 0.94);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   justify-content: space-around;
-  padding: 10px 8px;
+  align-items: center;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
   z-index: 30;
 }
 
@@ -421,18 +421,24 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  font-size: 10px;
-  color: var(--muted);
+  gap: 5px;
+  padding: 7px 20px;
+  border-radius: 16px;
+  font-size: 11px;
   font-weight: 700;
+  color: #8b8590;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-item svg {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 .nav-item.active {
-  color: #fff;
-}
-
-.nav-item .ic {
-  font-size: 20px;
+  background: rgba(255, 59, 92, 0.16);
+  color: #ff3b5c;
 }
 
 /* ---------- Crash ---------- */
