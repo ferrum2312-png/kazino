@@ -326,6 +326,273 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.btn.blue {
+  background: linear-gradient(180deg, #3d95ff, #1f7aff);
+  box-shadow: 0 8px 24px rgba(45, 130, 255, 0.35);
+}
+
+.btn.dark {
+  background: #1c1a1f;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- Profile page ---------- */
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pf-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 2px 4px;
+}
+
+.pf-top-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pf-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #16151a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+}
+
+.pf-online {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: #16151a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.pf-people {
+  filter: grayscale(1) brightness(1.6);
+  font-size: 14px;
+}
+
+.pf-ton-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 6px 0 14px;
+  border-radius: 999px;
+  background: #16151a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.pf-diamond {
+  font-size: 15px;
+}
+
+.pf-plus {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.pf-card {
+  background: #121116;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  padding: 16px;
+  width: 100%;
+  text-align: left;
+}
+
+.pf-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0 10px, transparent 10px 20px),
+    #121116;
+}
+
+.pf-avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #221a26;
+  flex: 0 0 auto;
+}
+
+.pf-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pf-name {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.pf-handle {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.pf-level-bar {
+  position: relative;
+  height: 22px;
+  border-radius: 999px;
+  background: #1f2733;
+  overflow: hidden;
+}
+
+.pf-level-fill {
+  height: 100%;
+  min-width: 40%;
+  background: linear-gradient(90deg, #2f88ff, #1f7aff);
+  border-radius: 999px;
+}
+
+.pf-level-a,
+.pf-level-b {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.pf-level-a {
+  left: 12px;
+}
+
+.pf-level-b {
+  right: 12px;
+}
+
+.pf-balance {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pf-coin {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  flex: 0 0 auto;
+}
+
+.pf-coin.ton {
+  background: rgba(52, 150, 255, 0.15);
+}
+
+.pf-coin.star {
+  background: radial-gradient(circle at 35% 30%, #ffe27a, #ff9b00);
+  color: #7a4a00;
+  font-size: 22px;
+}
+
+.pf-bal-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pf-bal-label {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.pf-bal-value {
+  font-size: 20px;
+  font-weight: 900;
+  margin-top: 2px;
+}
+
+.pf-chip {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+
+.pf-help {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #1c1a1f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  font-weight: 800;
+  flex: 0 0 auto;
+}
+
+.pf-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pf-actions .btn {
+  padding: 16px 10px;
+}
+
+.pf-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  gap: 6px;
+}
+
+.pf-duck {
+  font-size: 72px;
+  margin-bottom: 6px;
+}
+
+.pf-empty-title {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.pf-empty-sub {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.pf-how {
+  padding: 12px 26px;
+}
+
 /* ---------- Forms ---------- */
 .input {
   width: 100%;
