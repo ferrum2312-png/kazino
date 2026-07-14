@@ -5,14 +5,6 @@ router = APIRouter(prefix="/catalog", tags=["catalog"])
 # Static catalog powering the home screen cards.
 GAMES = [
     {
-        "slug": "raffles",
-        "title": "РОЗЫГРЫШИ",
-        "subtitle": "Ежедневные призы",
-        "live": False,
-        "playable": False,
-        "accent": "#3ddc84",
-    },
-    {
         "slug": "ralph-arena",
         "title": "VAVADA АРЕНА",
         "subtitle": "Сражайся за джекпот",

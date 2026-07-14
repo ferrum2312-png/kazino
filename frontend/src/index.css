@@ -180,9 +180,9 @@ button {
   display: flex;
   align-items: center;
   padding: 0 24px;
-  background: linear-gradient(100deg, #0c080d 0%, #120a13 55%, #180d1a 100%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  background: linear-gradient(100deg, #1b1122 0%, #241531 55%, #311a3e 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.07);
   transition: transform 0.12s ease, box-shadow 0.2s ease;
 }
 
@@ -203,14 +203,14 @@ button {
 
 .game-card .glow {
   position: absolute;
-  right: -30px;
+  right: -20px;
   top: 50%;
   transform: translateY(-50%);
-  width: 220px;
-  height: 220px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
-  filter: blur(50px);
-  opacity: 0.5;
+  filter: blur(44px);
+  opacity: 0.9;
   pointer-events: none;
 }
 
@@ -220,7 +220,8 @@ button {
   font-size: 26px;
   font-weight: 900;
   letter-spacing: 0.5px;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 2px 18px rgba(0, 0, 0, 0.5);
 }
 
 .game-card .subtitle {
