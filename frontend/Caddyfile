@@ -1,0 +1,17 @@
+# Caddy automatically obtains and renews a Let's Encrypt certificate for SITE_ADDRESS,
+# serves the built SPA, and reverse-proxies the API (including the crash WebSocket).
+{$SITE_ADDRESS:titorovka.icu} {
+	encode gzip zstd
+
+	# API + WebSocket -> FastAPI backend. reverse_proxy upgrades WS automatically.
+	handle /api/* {
+		reverse_proxy backend:8000
+	}
+
+	# Static SPA with client-side routing fallback.
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+}
