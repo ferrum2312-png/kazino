@@ -43,6 +43,14 @@ class Settings(BaseSettings):
     deposit_poll_seconds: int = 20   # how often the watcher polls for new deposits
     deposits_enabled: bool = True    # master switch for the on-chain deposit watcher
 
+    # Public base URL (for the Telegram bot webhook).
+    public_base_url: str = "https://titorovka.icu"
+
+    # Crypto Pay (@CryptoBot) — token from env only (repo is public!).
+    crypto_pay_token: str = ""
+    crypto_pay_base: str = "https://pay.crypt.bot"  # mainnet; testnet: https://testnet-pay.crypt.bot
+    crypto_pay_poll_seconds: int = 15
+
     # Gameplay
     starting_balance: float = 1000.0
     crash_house_edge: float = 0.03  # 3%

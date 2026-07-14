@@ -39,6 +39,11 @@ services:
       REDIS_URL: redis://redis:6379/0
       SECRET_KEY: ${SECRET_KEY}
       BOT_TOKEN: ${BOT_TOKEN}
+      TON_API_KEY: ${TON_API_KEY:-}
+      STAR_USD_PRICE: ${STAR_USD_PRICE:-0.015}
+      CRYPTO_PAY_TOKEN: ${CRYPTO_PAY_TOKEN:-}
+      CRYPTO_PAY_BASE: ${CRYPTO_PAY_BASE:-https://pay.crypt.bot}
+      PUBLIC_BASE_URL: https://${SITE_ADDRESS}
       ENVIRONMENT: production
       CORS_ORIGINS: https://${SITE_ADDRESS}
     expose:

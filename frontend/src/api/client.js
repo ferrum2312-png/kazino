@@ -71,6 +71,13 @@ export const api = {
   getRate: () => request('/payments/rate'),
   depositInfo: () => request('/payments/deposit-info'),
   myDeposits: () => request('/payments/my-deposits'),
+  starsInvoice: (amount) =>
+    request('/payments/stars-invoice', { method: 'POST', body: { amount } }),
+  cryptobotInvoice: (amount, asset) =>
+    request('/payments/cryptobot-invoice', {
+      method: 'POST',
+      body: { amount, asset },
+    }),
 }
 
 export function crashSocketUrl() {

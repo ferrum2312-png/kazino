@@ -1,4 +1,4 @@
-from app.models.deposit import TonDeposit
+from app.models.deposit import Payment, TonDeposit
 from app.models.game import CrashBet, CrashRound, MinesGame
 from app.models.transaction import Transaction, TransactionType
 from app.models.user import User
@@ -11,4 +11,5 @@ __all__ = [
     "CrashBet",
     "MinesGame",
     "TonDeposit",
+    "Payment",
 ]

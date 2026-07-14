@@ -1,14 +1,18 @@
 import { useState } from 'react'
 import { useI18n } from '../i18n'
 import TonDeposit from './TonDeposit'
+import StarsDeposit from './StarsDeposit'
+import CryptoDeposit from './CryptoDeposit'
 import Toast from './Toast'
 
 const METHODS = [
   { key: 'gifts', icon: '🎁', ready: false },
   { key: 'ton', icon: '💎', min: '0.1', ready: true },
-  { key: 'stars', icon: '✈️', min: '1', ready: false },
-  { key: 'cryptobot', icon: '🪙', min: '0.1', ready: false },
+  { key: 'stars', icon: '✈️', min: '1', ready: true },
+  { key: 'cryptobot', icon: '🪙', min: '0.1', ready: true },
 ]
+
+const TITLES = { ton: 'Toncoin', stars: 'Telegram Stars', cryptobot: 'Crypto Bot' }
 
 export default function DepositSheet({ onClose }) {
   const { t } = useI18n()
@@ -23,7 +27,14 @@ export default function DepositSheet({ onClose }) {
       setToast(t('soon'))
       return
     }
-    if (selected === 'ton') setStep('amount')
+    setStep('amount')
+  }
+
+  const renderStep = () => {
+    if (selected === 'ton') return <TonDeposit onDone={onClose} />
+    if (selected === 'stars') return <StarsDeposit onDone={onClose} />
+    if (selected === 'cryptobot') return <CryptoDeposit onDone={onClose} />
+    return null
   }
 
   return (
@@ -57,22 +68,17 @@ export default function DepositSheet({ onClose }) {
             </div>
 
             <button
-              className="btn blue block dep-continue"
+              className="btn blue block"
               style={{ marginTop: 14 }}
               onClick={cont}
             >
-              <span>{t('continue')}</span>
-              {selected === 'ton' && (
-                <span className="dep-continue-sub">
-                  {t('minAmount', { n: '0.1' })}
-                </span>
-              )}
+              {t('continue')}
             </button>
           </>
         ) : (
           <>
-            <div className="modal-title">Toncoin</div>
-            <TonDeposit onDone={onClose} />
+            <div className="modal-title">{TITLES[selected]}</div>
+            {renderStep()}
             <button
               className="btn ghost block"
               style={{ marginTop: 10 }}
